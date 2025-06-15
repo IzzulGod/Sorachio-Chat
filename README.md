@@ -1,6 +1,6 @@
-# SorachioChat v2
+# SorachioChat 
 
-**SorachioChat v2** is an advanced AI chatbot application with **multimodal** capabilities — enabling users to interact using text, voice, and images. This entire project was built with AI assistance using [Lovable.dev](https://lovable.dev), powered by OpenRouter API backend, and securely deployed through Netlify.
+**SorachioChat** is an advanced AI chatbot application with **multimodal** capabilities — enabling users to interact using text, voice, and images. This entire project was built with AI assistance using [Lovable.dev](https://lovable.dev), powered by OpenRouter API backend, and securely deployed through Netlify.
 
 ## 🔗 Live Demo
 
