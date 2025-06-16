@@ -6,6 +6,17 @@
   
 [Sorachio AI](https://sorachio.netlify.app)
 
+## 🎯 About Sorachio
+
+Sorachio represents an experimental approach to developing a comprehensive personal AI assistant that bridges the gap between traditional chatbots and advanced multimodal AI systems. The project demonstrates cutting-edge capabilities including:
+
+- **Multimodal Understanding**: Processing text, voice, and visual inputs seamlessly
+- **Real-time Information Access**: Live web browsing for current information
+- **Natural Conversation**: Emotionally aware personality designed by 1dle Labs with Indonesian language support
+- **Technical Excellence**: Modern web technologies with serverless architecture
+
+Future development plans include integration into offline-capable intelligent robotic systems, making advanced AI technology accessible across various interaction modalities.
+
 **Sorachio Chat** is a sophisticated web-based AI chatbot application with **multimodal** capabilities, enabling users to interact through text, voice, and images. Built with AI assistance using [Lovable.dev](https://lovable.dev), powered by OpenRouter API backend, and enhanced with real-time web browsing capabilities via Brave Search API. The application features an elegant, minimalist design with premium UI aesthetics and is securely deployed through Netlify.
 
 ## ✨ Key Features
@@ -41,27 +52,6 @@
 - **Comprehensive Error Handling**: Robust error management with informative user feedback
 - **Timeout Management**: Smart handling of heavy requests and processing delays
 - **CORS Security**: Proper cross-origin resource sharing implementation
-
-## 📁 Project Structure
-
-```
-src/
-├── components/     # UI components (buttons, chat bubbles, sidebar)
-├── hooks/         # Custom React hooks (useChat, etc.)
-├── lib/           # API configurations and utility helpers
-├── pages/         # Main pages and layouts
-├── styles/        # CSS/SCSS styling files
-├── types/         # Custom TypeScript type definitions
-└── utils/         # Helper functions and utilities
-
-netlify/
-└── functions/     # Serverless backend functions
-    └── chat.js    # Main API endpoint for chat functionality
-
-public/
-├── logo.png       # Application logo
-└── ...           # Static assets
-```
 
 ## 🛠️ Technology Stack
 
@@ -104,7 +94,7 @@ Configure the following environment variables in Netlify for backend functionali
 
 ```env
 OPENROUTER_API_KEY=your_openrouter_api_key_here
-BRAVE_SEARCH_API_KEY=your_brave_search_api_key_here
+BRAVE_API_KEY=your_brave_search_api_key_here
 ```
 
 ### Build for Production
@@ -237,14 +227,3 @@ We welcome contributions to improve Sorachio Chat! Here's how you can help:
 ## 📄 License
 
 This project is open source. Please check the repository for specific license information.
-
-## 🎯 About Sorachio
-
-Sorachio represents an experimental approach to developing a comprehensive personal AI assistant that bridges the gap between traditional chatbots and advanced multimodal AI systems. The project demonstrates cutting-edge capabilities including:
-
-- **Multimodal Understanding**: Processing text, voice, and visual inputs seamlessly
-- **Real-time Information Access**: Live web browsing for current information
-- **Natural Conversation**: Emotionally aware personality designed by 1dle Labs with Indonesian language support
-- **Technical Excellence**: Modern web technologies with serverless architecture
-
-Future development plans include integration into offline-capable intelligent robotic systems, making advanced AI technology accessible across various interaction modalities.
