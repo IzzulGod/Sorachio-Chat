@@ -1,4 +1,3 @@
-
 import { useState, useCallback } from 'react';
 import { Chat, Message } from '@/types/chat';
 import { useToast } from '@/hooks/use-toast';
@@ -84,21 +83,37 @@ export const useChat = (selectedChatId: string | null) => {
     });
   };
 
-  // Helper function to determine if search is needed
+  // Enhanced search keyword detection - improved to handle variations and typos
   const shouldSearchInternet = (content: string): boolean => {
+    const normalizedContent = content.toLowerCase();
+    
     const searchKeywords = [
+      // Indonesian variations
       'terbaru', 'berita', 'informasi', 'update', 'sekarang', 'hari ini',
+      'kapan', 'dimana', 'siapa', 'harga', 'cuaca', 'stock', 'saham',
+      // Different variations of "carikan" including typos and informal spellings
+      'carikan', 'cariin', 'cariin', 'cari kan', 'cari in', 'tolong carikan', 'tolong cari',
+      'kasih tau', 'kasih tahu', 'info tentang', 'info soal',
+      // English variations
       'latest', 'news', 'current', 'recent', 'today', 'now',
-      'kapan', 'when', 'dimana', 'where', 'siapa', 'who',
-      'harga', 'price', 'cuaca', 'weather', 'stock', 'saham', 'carikan'
+      'when', 'where', 'who', 'price', 'weather', 'find me', 'search for',
+      'tell me about', 'information about', 'what is the latest'
     ];
     
-    return searchKeywords.some(keyword => 
-      content.toLowerCase().includes(keyword.toLowerCase())
+    const hasSearchKeyword = searchKeywords.some(keyword => 
+      normalizedContent.includes(keyword.toLowerCase())
     );
+    
+    console.log('🔍 Search detection:', {
+      content: content.substring(0, 50),
+      hasSearchKeyword,
+      matchedKeywords: searchKeywords.filter(keyword => normalizedContent.includes(keyword.toLowerCase()))
+    });
+    
+    return hasSearchKeyword;
   };
 
-  const sendMessage = useCallback(async (content: string, image?: File, targetChatId?: string) => {
+  const sendMessage = useCallback(async (content: string, image?: File, targetChatId?: string, forceSearch?: boolean) => {
     const chatId = targetChatId || selectedChatId;
     
     console.log('🚀 sendMessage called with:', { 
@@ -107,7 +122,8 @@ export const useChat = (selectedChatId: string | null) => {
       selectedChatId, 
       finalChatId: chatId, 
       hasImage: !!image,
-      chatsCount: chats.length
+      chatsCount: chats.length,
+      forceSearch
     });
 
     if (!chatId) {
@@ -115,9 +131,9 @@ export const useChat = (selectedChatId: string | null) => {
       return;
     }
 
-    // Check if internet search is needed FIRST
-    const needsSearch = shouldSearchInternet(content);
-    console.log('🔍 Needs internet search:', needsSearch);
+    // Check if internet search is needed - either forced or by keyword detection
+    const needsSearch = forceSearch || shouldSearchInternet(content);
+    console.log('🔍 Needs internet search:', needsSearch, '(forced:', forceSearch, ')');
     
     // Set loading states
     setIsLoading(true);

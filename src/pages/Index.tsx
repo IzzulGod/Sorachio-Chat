@@ -82,11 +82,12 @@ const Index = () => {
     };
   }, [sidebarOpen]);
 
-  const handleSendMessage = async (content: string, image?: File) => {
+  const handleSendMessage = async (content: string, image?: File, forceSearch?: boolean) => {
     console.log('🚀 Starting handleSendMessage...', { 
       selectedChatId, 
       chatsCount: chats.length, 
-      hasContent: !!content.trim() 
+      hasContent: !!content.trim(),
+      forceSearch 
     });
     
     scrollToBottom();
@@ -102,7 +103,7 @@ const Index = () => {
     }
     
     console.log('📤 Sending message to chat:', targetChatId);
-    await sendMessage(content, image, targetChatId);
+    await sendMessage(content, image, targetChatId, forceSearch);
     
     setTimeout(scrollToBottom, 50);
     setTimeout(scrollToBottom, 200);

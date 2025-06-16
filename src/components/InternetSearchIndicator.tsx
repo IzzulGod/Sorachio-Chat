@@ -11,41 +11,37 @@ export const InternetSearchIndicator = ({ isSearching }: InternetSearchIndicator
   return (
     <div className="flex items-center space-x-3 px-4 py-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg mb-4 mx-4 animate-fade-in">
       <div className="relative">
-        {/* Main search icon with gentle bounce */}
-        <Search className="w-5 h-5 text-blue-600 dark:text-blue-400 animate-bounce" />
+        {/* Main search icon with smooth float animation */}
+        <Search className="w-5 h-5 text-blue-600 dark:text-blue-400 animate-search-float" />
         
-        {/* Scanning effect - moving dots around the search icon */}
-        <div className="absolute -inset-2">
-          <div className="w-1 h-1 bg-blue-500 rounded-full absolute animate-ping" 
+        {/* Subtle scanning dots around the search icon */}
+        <div className="absolute -inset-1">
+          <div className="w-1 h-1 bg-blue-500 rounded-full absolute animate-search-dot-1" 
                style={{ 
-                 top: '0px', 
+                 top: '-2px', 
                  left: '50%', 
-                 animationDelay: '0s',
-                 animationDuration: '2s' 
+                 transform: 'translateX(-50%)'
                }} 
           />
-          <div className="w-1 h-1 bg-blue-500 rounded-full absolute animate-ping" 
+          <div className="w-1 h-1 bg-blue-500 rounded-full absolute animate-search-dot-2" 
                style={{ 
                  top: '50%', 
-                 right: '0px', 
-                 animationDelay: '0.5s',
-                 animationDuration: '2s' 
+                 right: '-2px', 
+                 transform: 'translateY(-50%)'
                }} 
           />
-          <div className="w-1 h-1 bg-blue-500 rounded-full absolute animate-ping" 
+          <div className="w-1 h-1 bg-blue-500 rounded-full absolute animate-search-dot-3" 
                style={{ 
-                 bottom: '0px', 
+                 bottom: '-2px', 
                  left: '50%', 
-                 animationDelay: '1s',
-                 animationDuration: '2s' 
+                 transform: 'translateX(-50%)'
                }} 
           />
-          <div className="w-1 h-1 bg-blue-500 rounded-full absolute animate-ping" 
+          <div className="w-1 h-1 bg-blue-500 rounded-full absolute animate-search-dot-4" 
                style={{ 
                  top: '50%', 
-                 left: '0px', 
-                 animationDelay: '1.5s',
-                 animationDuration: '2s' 
+                 left: '-2px', 
+                 transform: 'translateY(-50%)'
                }} 
           />
         </div>

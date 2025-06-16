@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Chat } from '@/types/chat';
 import { Download, FileText, FileJson } from 'lucide-react';
 import { exportChatAsJSON, exportChatAsTXT } from '@/utils/chatExport';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -36,8 +36,30 @@ export const Sidebar = ({
   onDeleteChat 
 }: SidebarProps) => {
   const [expandedChatId, setExpandedChatId] = useState<string | null>(null);
+  const exportMenuRef = useRef<HTMLDivElement>(null);
 
   console.log('Sidebar render - isOpen:', isOpen);
+
+  // Close export menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (exportMenuRef.current && !exportMenuRef.current.contains(event.target as Node)) {
+        // Check if click is not on export button or export options
+        const target = event.target as HTMLElement;
+        const isExportButton = target.closest('[data-export-button]');
+        const isExportOption = target.closest('[data-export-option]');
+        
+        if (!isExportButton && !isExportOption) {
+          setExpandedChatId(null);
+        }
+      }
+    };
+
+    if (expandedChatId) {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => document.removeEventListener('mousedown', handleClickOutside);
+    }
+  }, [expandedChatId]);
 
   if (!isOpen) {
     console.log('Sidebar hidden because isOpen is false');
@@ -47,11 +69,13 @@ export const Sidebar = ({
   const handleExportJSON = (e: React.MouseEvent, chat: Chat) => {
     e.stopPropagation();
     exportChatAsJSON(chat);
+    setExpandedChatId(null); // Close menu after export
   };
 
   const handleExportTXT = (e: React.MouseEvent, chat: Chat) => {
     e.stopPropagation();
     exportChatAsTXT(chat);
+    setExpandedChatId(null); // Close menu after export
   };
 
   const toggleExportMenu = (e: React.MouseEvent, chatId: string) => {
@@ -111,13 +135,14 @@ export const Sidebar = ({
                       ? 'bg-accent' 
                       : 'hover:bg-accent/50'
                   }`}
+                  ref={expandedChatId === chat.id ? exportMenuRef : null}
                 >
                   <div
                     className="p-3 cursor-pointer"
                     onClick={() => onSelectChat(chat.id)}
                   >
                     <div className="flex items-center justify-between">
-                      <div className="flex-1 min-w-0 pr-1">
+                      <div className="flex-1 min-w-0 pr-2">
                         <p className="text-sm font-medium text-foreground truncate">
                           {chat.title || 'New Chat'}
                         </p>
@@ -125,36 +150,29 @@ export const Sidebar = ({
                           {chat.messages.length} messages
                         </p>
                       </div>
-                      <div className="flex items-center gap-0 md:gap-0.5">
-                        {/* Export button */}
+                      <div className="flex items-center gap-1">
+                        {/* Export button with better mobile spacing */}
                         <Button
                           variant="ghost"
                           size="sm"
                           onClick={(e) => toggleExportMenu(e, chat.id)}
-                          className="md:opacity-0 md:group-hover:opacity-100 transition-all duration-200 p-1 md:p-1.5 h-6 w-6 md:h-7 md:w-7 hover:bg-accent hover:scale-105 text-muted-foreground hover:text-foreground flex-shrink-0"
+                          data-export-button="true"
+                          className="md:opacity-0 md:group-hover:opacity-100 transition-all duration-200 p-1.5 h-7 w-7 md:h-8 md:w-8 hover:bg-accent hover:scale-105 text-muted-foreground hover:text-foreground flex-shrink-0"
                           title="Export chat"
                         >
-                          <Download size={12} className="md:hidden" />
-                          <Download size={14} className="hidden md:block" />
+                          <Download size={14} />
                         </Button>
-                        {/* Delete button with confirmation */}
+                        {/* Delete button with confirmation and better mobile spacing */}
                         <AlertDialog>
                           <AlertDialogTrigger asChild>
                             <Button
                               variant="ghost"
                               size="sm"
                               onClick={(e) => e.stopPropagation()}
-                              className="md:opacity-0 md:group-hover:opacity-100 transition-all duration-200 p-1 md:p-1.5 h-6 w-6 md:h-7 md:w-7 hover:bg-destructive/10 hover:text-destructive hover:scale-105 text-muted-foreground flex-shrink-0"
+                              className="md:opacity-0 md:group-hover:opacity-100 transition-all duration-200 p-1.5 h-7 w-7 md:h-8 md:w-8 hover:bg-destructive/10 hover:text-destructive hover:scale-105 text-muted-foreground flex-shrink-0"
                               title="Delete chat"
                             >
-                              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="md:hidden">
-                                <path d="M3 6h18"/>
-                                <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
-                                <path d="M8 6V4c0-1 1-2 2-2h4c-1 0 2 1 2 2v2"/>
-                                <line x1="10" y1="11" x2="10" y2="17"/>
-                                <line x1="14" y1="11" x2="14" y2="17"/>
-                              </svg>
-                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="hidden md:block">
+                              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                                 <path d="M3 6h18"/>
                                 <path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/>
                                 <path d="M8 6V4c0-1 1-2 2-2h4c-1 0 2 1 2 2v2"/>
@@ -193,6 +211,7 @@ export const Sidebar = ({
                           variant="ghost"
                           size="sm"
                           onClick={(e) => handleExportJSON(e, chat)}
+                          data-export-option="true"
                           className="w-full justify-start text-sm h-9 hover:bg-accent/80 hover:scale-[1.02] text-foreground transition-all duration-200 font-medium"
                         >
                           <FileJson size={16} className="mr-3 text-blue-500" />
@@ -202,6 +221,7 @@ export const Sidebar = ({
                           variant="ghost"
                           size="sm"
                           onClick={(e) => handleExportTXT(e, chat)}
+                          data-export-option="true"
                           className="w-full justify-start text-sm h-9 hover:bg-accent/80 hover:scale-[1.02] text-foreground transition-all duration-200 font-medium"
                         >
                           <FileText size={16} className="mr-3 text-green-500" />

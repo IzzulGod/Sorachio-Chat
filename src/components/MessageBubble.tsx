@@ -28,7 +28,7 @@ export const MessageBubble = ({ message }: MessageBubbleProps) => {
     }
   }, [message, isUser]);
 
-  // Enhanced content processing with better markdown handling
+  // Enhanced content processing with better markdown handling and improved spacing
   const processContent = (content: string) => {
     console.log('🔄 Processing content:', {
       originalLength: content.length,
@@ -39,29 +39,13 @@ export const MessageBubble = ({ message }: MessageBubbleProps) => {
     
     let processed = content;
 
-    // Enhanced code block processing
+    // Simplified code block processing - just clean formatting without header/copy button
     processed = processed.replace(/```(\w*)\s*\n?([\s\S]*?)```/g, (match, lang, code) => {
-      const language = lang?.toLowerCase().trim() || 'plaintext';
       const cleanCode = code.trim();
       
       console.log('📦 Processing code block:', { 
-        language, 
         codeLength: cleanCode.length
       });
-      
-      const languageMap: Record<string, string> = {
-        'js': 'javascript',
-        'ts': 'typescript',
-        'py': 'python',
-        'rb': 'ruby',
-        'sh': 'bash',
-        'yml': 'yaml',
-        'md': 'markdown',
-        'jsx': 'javascript',
-        'tsx': 'typescript'
-      };
-      
-      const displayLanguage = languageMap[language] || language || 'plaintext';
       
       const escapedCode = cleanCode
         .replace(/&/g, '&amp;')
@@ -70,24 +54,18 @@ export const MessageBubble = ({ message }: MessageBubbleProps) => {
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#39;');
       
-      return `<div class="my-4 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 shadow-sm">
-        <div class="px-4 py-2 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center">
-          <span class="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wide">${displayLanguage}</span>
-          <button onclick="navigator.clipboard.writeText(\`${escapedCode.replace(/`/g, '\\`')}\`)" class="text-xs text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 px-2 py-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
-            Copy
-          </button>
-        </div>
+      return `<div class="my-2 rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 shadow-sm">
         <div class="overflow-x-auto">
-          <pre class="p-4 text-sm leading-relaxed text-gray-800 dark:text-gray-200 font-mono whitespace-pre-wrap break-words" style="tab-size: 2;"><code class="language-${displayLanguage}">${escapedCode}</code></pre>
+          <pre class="p-3 text-sm leading-tight text-gray-800 dark:text-gray-200 font-mono whitespace-pre-wrap break-words" style="tab-size: 2;"><code>${escapedCode}</code></pre>
         </div>
       </div>`;
     });
 
     // Enhanced inline code processing
     processed = processed.replace(/(?<!`)`([^`\n]+?)`(?!`)/g, 
-      '<code class="bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded text-sm font-mono text-red-600 dark:text-red-400 border border-gray-200 dark:border-gray-600">$1</code>');
+      '<code class="bg-gray-100 dark:bg-gray-800 px-1.5 py-0.5 rounded text-sm font-mono text-red-600 dark:text-red-400 border border-gray-200 dark:border-gray-600">$1</code>');
 
-    // Enhanced markdown links - this will make URLs clickable
+    // Enhanced markdown links
     processed = processed.replace(/\[([^\]]+)\]\(([^)]+)\)/g, 
       '<a href="$2" class="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 transition-colors font-medium" target="_blank" rel="noopener noreferrer">$1</a>');
 
@@ -95,20 +73,20 @@ export const MessageBubble = ({ message }: MessageBubbleProps) => {
     processed = processed.replace(/(?<!href="|>)(https?:\/\/[^\s<>"]+)/g, 
       '<a href="$1" class="text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 transition-colors font-medium break-all" target="_blank" rel="noopener noreferrer">$1</a>');
 
-    // Enhanced headers with better styling
+    // Enhanced headers with better styling and compact spacing
     processed = processed.replace(/^(#{1,6})\s+(.+)$/gm, (match, hashes, text) => {
       const level = hashes.length;
-      const sizes = ['text-2xl', 'text-xl', 'text-lg', 'text-base', 'text-sm', 'text-xs'];
+      const sizes = ['text-lg', 'text-base', 'text-base', 'text-sm', 'text-sm', 'text-xs'];
       const weights = ['font-bold', 'font-bold', 'font-semibold', 'font-medium', 'font-medium', 'font-normal'];
-      const className = `${sizes[level - 1] || 'text-base'} ${weights[level - 1] || 'font-medium'}`;
-      return `<h${level} class="${className} mt-6 mb-3 text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 pb-2">${text.trim()}</h${level}>`;
+      const className = `${sizes[level - 1] || 'text-sm'} ${weights[level - 1] || 'font-medium'}`;
+      return `<h${level} class="${className} mt-2 mb-1 text-gray-900 dark:text-gray-100 border-b border-gray-200 dark:border-gray-700 pb-0.5">${text.trim()}</h${level}>`;
     });
 
     // Enhanced bold and italic
     processed = processed.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-gray-900 dark:text-gray-100">$1</strong>');
     processed = processed.replace(/(?<!\*)\*([^*\n]+?)\*(?!\*)/g, '<em class="italic text-gray-700 dark:text-gray-300">$1</em>');
 
-    // Enhanced lists with better nesting support
+    // Enhanced lists with compact spacing
     const lines = processed.split('\n');
     let inList = false;
     let processedLines: string[] = [];
@@ -125,11 +103,11 @@ export const MessageBubble = ({ message }: MessageBubbleProps) => {
         if (!inList) {
           const listTag = isOrdered ? 'ol' : 'ul';
           const listClass = isOrdered ? 'list-decimal' : 'list-disc';
-          processedLines.push(`<${listTag} class="pl-6 my-3 space-y-1 ${listClass}">`);
+          processedLines.push(`<${listTag} class="pl-4 my-1 space-y-0 ${listClass}">`);
           inList = true;
         }
         
-        processedLines.push(`<li class="ml-${level * 4} leading-relaxed">${text}</li>`);
+        processedLines.push(`<li class="ml-${level * 3} leading-tight text-sm mb-0">${text}</li>`);
       } else {
         if (inList) {
           processedLines.push('</ol></ul>');
@@ -145,25 +123,26 @@ export const MessageBubble = ({ message }: MessageBubbleProps) => {
     
     processed = processedLines.join('\n');
 
-    // Enhanced blockquotes
+    // Enhanced blockquotes with compact spacing
     processed = processed.replace(/^>\s+(.+)$/gm, 
-      '<blockquote class="border-l-4 border-gray-300 dark:border-gray-600 pl-4 py-2 my-4 bg-gray-50 dark:bg-gray-800 rounded-r italic text-gray-700 dark:text-gray-300">$1</blockquote>');
+      '<blockquote class="border-l-3 border-gray-300 dark:border-gray-600 pl-2 py-0.5 my-1 bg-gray-50 dark:bg-gray-800 rounded-r italic text-gray-700 dark:text-gray-300 text-sm">$1</blockquote>');
 
-    // Tables
+    // Tables with compact spacing
     processed = processed.replace(/\|(.+)\|/g, (match, content) => {
       const cells = content.split('|').map(cell => cell.trim()).filter(cell => cell);
       return `<tr class="border-b border-gray-200 dark:border-gray-700">${cells.map(cell => 
-        `<td class="px-3 py-2 text-sm">${cell}</td>`
+        `<td class="px-2 py-0.5 text-sm">${cell}</td>`
       ).join('')}</tr>`;
     });
     
     if (processed.includes('<tr')) {
       processed = processed.replace(/(<tr.*?>.*?<\/tr>)/gs, 
-        '<table class="w-full border-collapse border border-gray-200 dark:border-gray-700 rounded-lg my-4 overflow-hidden">$1</table>');
+        '<table class="w-full border-collapse border border-gray-200 dark:border-gray-700 rounded-lg my-2 overflow-hidden">$1</table>');
     }
 
-    // Convert line breaks but preserve spacing
-    processed = processed.replace(/\n\n/g, '<br><br>');
+    // Convert line breaks with much tighter spacing
+    processed = processed.replace(/\n\s*\n\s*\n+/g, '\n\n'); // Convert triple+ line breaks to double
+    processed = processed.replace(/\n\n/g, '<br class="my-0.5">'); // Very tight paragraph spacing
     processed = processed.replace(/\n/g, '<br>');
 
     console.log('✅ Content processing complete:', {
@@ -221,23 +200,26 @@ export const MessageBubble = ({ message }: MessageBubbleProps) => {
         
         {isUser ? (
           <div>
-            <p className="text-sm whitespace-pre-wrap break-words leading-relaxed">{message.content}</p>
+            <p className="text-sm whitespace-pre-wrap break-words leading-tight">{message.content}</p>
           </div>
         ) : (
           <div
             ref={contentRef}
-            className="text-sm break-words leading-relaxed
+            className="text-sm break-words leading-tight
                        prose prose-sm max-w-none dark:prose-invert 
                        [&>div]:overflow-visible [&>div>div>pre]:overflow-x-auto 
                        [&_code]:text-xs [&_pre]:text-xs [&_table]:text-xs
-                       [&_h1]:text-lg [&_h2]:text-base [&_h3]:text-sm
+                       [&_h1]:text-base [&_h2]:text-sm [&_h3]:text-sm
                        [&_a]:break-all [&_a]:word-break-all
                        [&_pre]:whitespace-pre-wrap [&_pre]:break-words
-                       [&_p]:leading-relaxed [&_li]:leading-relaxed"
+                       [&_p]:leading-tight [&_li]:leading-tight
+                       [&_p]:my-0 [&_div]:my-0 [&_br]:my-0
+                       [&_ul]:my-1 [&_ol]:my-1 [&_li]:mb-0"
             style={{ 
               wordBreak: 'break-word',
               overflowWrap: 'break-word',
-              maxWidth: '100%'
+              maxWidth: '100%',
+              lineHeight: '1.3'
             }}
             dangerouslySetInnerHTML={{ __html: processContent(message.content) }}
           />

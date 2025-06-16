@@ -6,9 +6,10 @@ import { Send } from 'lucide-react';
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 import { AutoResizeTextarea } from '@/components/AutoResizeTextarea';
 import { VoiceRecording } from '@/components/VoiceRecording';
+import { SearchModeToggle } from '@/components/SearchModeToggle';
 
 interface ChatInputProps {
-  onSendMessage: (content: string, image?: File) => void;
+  onSendMessage: (content: string, image?: File, forceSearch?: boolean) => void;
   isLoading: boolean;
 }
 
@@ -18,6 +19,7 @@ export const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [recordingProgress, setRecordingProgress] = useState(0);
   const [showRecordingFeedback, setShowRecordingFeedback] = useState(false);
+  const [isSearchMode, setIsSearchMode] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { isListening, startListening, stopListening, transcript } = useSpeechRecognition();
@@ -62,7 +64,7 @@ export const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
       setTimeout(() => messageContainer.classList.remove('animate-pulse'), 300);
     }
     
-    onSendMessage(message.trim(), selectedImage || undefined);
+    onSendMessage(message.trim(), selectedImage || undefined, isSearchMode);
     setMessage('');
     setSelectedImage(null);
     setImagePreview(null);
@@ -98,6 +100,14 @@ export const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
 
   return (
     <div className="border-t border-border bg-background p-4">
+      {/* Search Mode Toggle - positioned on the left */}
+      <div className="mb-3">
+        <SearchModeToggle 
+          isSearchMode={isSearchMode} 
+          onToggle={setIsSearchMode}
+        />
+      </div>
+
       {/* Simplified Recording Feedback */}
       {isListening && (
         <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg">
@@ -148,7 +158,7 @@ export const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
             <AutoResizeTextarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder="Type your message here..."
+              placeholder={isSearchMode ? "Cari informasi terbaru..." : "Type your message here..."}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                   e.preventDefault();
