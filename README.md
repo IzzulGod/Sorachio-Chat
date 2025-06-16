@@ -13,6 +13,8 @@
   </a>
 </p>
 
+**Sorachio Chat** is a sophisticated web-based AI chatbot application with **multimodal** capabilities, enabling users to interact through text, voice, and images. Built with AI assistance using [Lovable.dev](https://lovable.dev), powered by OpenRouter API backend, and enhanced with real-time web browsing capabilities via Brave Search API. The application features an elegant, minimalist design with premium UI aesthetics and is securely deployed through Netlify.
+
 ## 🎯 About Sorachio
 
 Sorachio represents an experimental approach to developing a comprehensive personal AI assistant that bridges the gap between traditional chatbots and advanced multimodal AI systems. The project demonstrates cutting-edge capabilities including:
@@ -22,9 +24,7 @@ Sorachio represents an experimental approach to developing a comprehensive perso
 - **Natural Conversation**: Emotionally aware personality designed by 1dle Labs with Indonesian language support
 - **Technical Excellence**: Modern web technologies with serverless architecture
 
-Future development plans include integration into offline-capable intelligent robotic systems, making advanced AI technology accessible across various interaction modalities.
-
-**Sorachio Chat** is a sophisticated web-based AI chatbot application with **multimodal** capabilities, enabling users to interact through text, voice, and images. Built with AI assistance using [Lovable.dev](https://lovable.dev), powered by OpenRouter API backend, and enhanced with real-time web browsing capabilities via Brave Search API. The application features an elegant, minimalist design with premium UI aesthetics and is securely deployed through Netlify.
+making advanced AI technology accessible across various interaction modalities.
 
 ## ✨ Key Features
 
