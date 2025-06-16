@@ -4,7 +4,7 @@
   <img src="public/logo.png" alt="Sorachio Logo" width="600"/>
 </p>
   
-  **🚀 Live Demo
+## 🚀 Live Demo
   
 [Sorachio AI](https://sorachio.netlify.app)**
 
