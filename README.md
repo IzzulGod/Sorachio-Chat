@@ -1,10 +1,12 @@
 # Sorachio Chat
 
-<div align="center">
-  <img src="public/logo.png" alt="Sorachio Chat Logo" width="200" height="200">
+<p align="center">
+  <img src="public/logo.png" alt="Sorachio Logo" width="600"/>
+</p>
   
   **🚀 Live Demo
-[Sorachio](https://sorachio.netlify.app)**
+  
+[Sorachio AI](https://sorachio.netlify.app)**
 
 ---
 
