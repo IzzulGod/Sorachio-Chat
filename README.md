@@ -233,4 +233,4 @@ We welcome contributions to improve Sorachio Chat! Here's how you can help:
 
 ## 📄 License
 
-This project is open source. Please check the repository for specific license information.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
