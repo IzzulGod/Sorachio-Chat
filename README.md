@@ -4,9 +4,7 @@
   <img src="public/logo.png" alt="Sorachio Logo" width="600"/>
 </p>
   
-**🚀 Live Demo**
-  
-[Sorachio AI](https://sorachio.netlify.app)**
+[Sorachio AI](https://sorachio.netlify.app)
 
 **Sorachio Chat** is a sophisticated web-based AI chatbot application with **multimodal** capabilities, enabling users to interact through text, voice, and images. Built with AI assistance using [Lovable.dev](https://lovable.dev), powered by OpenRouter API backend, and enhanced with real-time web browsing capabilities via Brave Search API. The application features an elegant, minimalist design with premium UI aesthetics and is securely deployed through Netlify.
 
