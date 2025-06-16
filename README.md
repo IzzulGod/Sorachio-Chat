@@ -101,7 +101,7 @@ Configure the following environment variables in Netlify for backend functionali
 
 ```env
 OPENROUTER_API_KEY=your_openrouter_api_key_here
-BRAVE_API_KEY=your_brave_search_api_key_here
+BRAVE_API_KEY=your_brave_api_key_here
 ```
 
 ### Build for Production
