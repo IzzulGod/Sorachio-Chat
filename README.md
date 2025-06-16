@@ -181,7 +181,7 @@ Modify the model configuration in `src/hooks/useChat.ts`:
 
 ```typescript
 const apiPayload = {
-  model: 'meta-llama/llama-4-maverick:free', // Replace with preferred model
+  model: 'openai/gpt-4o', // Replace with preferred model
   messages: messages,
   // ... other configurations
 };
@@ -193,7 +193,7 @@ Edit the system prompt in `useChat.ts`:
 ```typescript
 {
   role: 'system',
-  content: 'You are Sorachio, a friendly and helpful AI assistant developed by 1dle Labs...' // Customize here
+  content: 'You are Sorachio, a friendly and helpful AI assistant...' // Customize here
 }
 ```
 
