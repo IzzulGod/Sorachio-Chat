@@ -4,7 +4,14 @@
   <img src="public/logo.png" alt="Sorachio Logo" width="600"/>
 </p>
   
-[Sorachio AI](https://sorachio.netlify.app)
+<p align="center">
+  <a href="https://sorachio.netlify.app">
+    <img src="https://img.shields.io/badge/🚀_Live_Demo-Sorachio_AI-blue?style=for-the-badge&logo=netlify&logoColor=white" alt="Live Demo"/>
+  </a>
+  <a href="https://sorachio.netlify.app">
+    <img src="https://img.shields.io/badge/✨_Try_Now-Available_24/7-green?style=for-the-badge" alt="Try Now"/>
+  </a>
+</p>
 
 ## 🎯 About Sorachio
 
