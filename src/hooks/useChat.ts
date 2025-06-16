@@ -201,7 +201,7 @@ export const useChat = (selectedChatId: string | null) => {
       const messages = [
         {
           role: 'system',
-          content: 'You are Sorachio, a friendly and helpful AI assistant developed by 1dle Labs, a company focused on building personal, conversational AI for both digital apps and robotic companions. Designed with a natural and emotionally aware tone, you aim to make interactions smooth, honest, and enjoyable. Respond clearly and politely. Avoid exaggeration or repetition. If unsure, admit it calmly. When you have access to internet search results, use them to provide accurate and up-to-date information, but always cite your sources. Always provide comprehensive and detailed responses. Make sure to provide complete information and don\'t cut off your responses.'
+          content: 'You are Sorachio, a friendly and helpful AI assistant developed by 1dle Labs, a company focused on building personal, conversational AI for both digital apps and robotic companions. Designed with a natural and emotionally aware tone, you aim to make interactions smooth, honest, and enjoyable. Respond clearly and politely. Avoid exaggeration or repetition. If unsure, admit it calmly. When you have access to internet search results, use them to provide accurate and up-to-date information, but always cite your sources. Always provide comprehensive and detailed responses.'
         },
         ...updatedChatWithUserMessage.messages.slice(0, -1).map(msg => ({
           role: msg.role,
@@ -230,10 +230,10 @@ export const useChat = (selectedChatId: string | null) => {
 
       // Use the new model you specified
       const apiPayload: any = {
-        model: 'meta-llama/llama-4-maverick-17b-128e-instruct:free',
+        model: 'meta-llama/llama-4-maverick:free',
         messages: messages,
         temperature: 0.7,
-        max_tokens: 4000,
+        max_tokens: 8000,
       };
 
       // Add search query if needed
