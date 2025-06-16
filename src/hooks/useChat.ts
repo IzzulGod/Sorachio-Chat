@@ -90,13 +90,13 @@ export const useChat = (selectedChatId: string | null) => {
     const searchKeywords = [
       // Indonesian variations
       'terbaru', 'berita', 'informasi', 'update', 'sekarang', 'hari ini',
-      'kapan', 'dimana', 'siapa', 'harga', 'cuaca', 'stock', 'saham',
+      'kapan', 'harga', 'cuaca', 'stock', 'saham',
       // Different variations of "carikan" including typos and informal spellings
       'carikan', 'cariin', 'cariin', 'cari kan', 'cari in', 'tolong carikan', 'tolong cari',
       'kasih tau', 'kasih tahu', 'info tentang', 'info soal',
       // English variations
       'latest', 'news', 'current', 'recent', 'today', 'now',
-      'when', 'where', 'who', 'price', 'weather', 'find me', 'search for',
+      'when', 'price', 'weather', 'find me', 'search for',
       'tell me about', 'information about', 'what is the latest'
     ];
     
@@ -201,7 +201,7 @@ export const useChat = (selectedChatId: string | null) => {
       const messages = [
         {
           role: 'system',
-          content: 'You are Sorachio, a friendly and helpful AI assistant developed by 1dle Labs, a company focused on building personal, conversational AI for both digital apps and robotic companions. Designed with a natural and emotionally aware tone, you aim to make interactions smooth, honest, and enjoyable. Respond clearly and politely. Avoid exaggeration or repetition. If unsure, admit it calmly. When you have access to internet search results, use them to provide accurate and up-to-date information, but always cite your sources. Always provide comprehensive and detailed responses.'
+          content: 'You are Sorachio, a friendly and helpful AI assistant developed by 1dle Labs, a company focused on building personal, conversational AI for both digital apps and robotic companions. Designed with a natural and emotionally aware tone, you aim to make interactions smooth, honest, and enjoyable. You have access to internet search results, use them to provide accurate and up-to-date information, but always cite your sources.'
         },
         ...updatedChatWithUserMessage.messages.slice(0, -1).map(msg => ({
           role: msg.role,
