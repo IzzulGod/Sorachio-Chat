@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { ChatContainer } from '@/components/ChatContainer';
 import { Sidebar } from '@/components/Sidebar';
@@ -87,19 +88,25 @@ const Index = () => {
       selectedChatId, 
       chatsCount: chats.length, 
       hasContent: !!content.trim(),
-      forceSearch 
+      forceSearch,
+      currentChatExists: !!currentChat,
+      currentChatMessages: currentChat?.messages?.length || 0
     });
     
     scrollToBottom();
     
     let targetChatId = selectedChatId;
     
-    // Jika tidak ada chat yang dipilih atau chat tidak ditemukan, buat chat baru
-    if (!selectedChatId || !chats.find(chat => chat.id === selectedChatId)) {
-      console.log('📝 Creating new chat for first message');
+    // Only create new chat if no chat is selected AND no current chat exists
+    // This prevents creating duplicate chats when "New Chat" was clicked
+    if (!selectedChatId || !currentChat) {
+      console.log('📝 Creating new chat for message because no valid chat selected');
       targetChatId = createNewChat();
       setSelectedChatId(targetChatId);
       console.log('✅ New chat created and selected:', targetChatId);
+    } else {
+      // Use existing selected chat even if it's empty
+      console.log('📤 Using existing selected chat:', targetChatId, 'with', currentChat.messages.length, 'messages');
     }
     
     console.log('📤 Sending message to chat:', targetChatId);
@@ -111,9 +118,10 @@ const Index = () => {
   };
 
   const handleNewChat = () => {
-    console.log('🆕 Creating new chat and returning to welcome screen');
-    createNewChat();
-    setSelectedChatId(null); // Reset ke null untuk menampilkan WelcomeScreen
+    console.log('🆕 Creating new chat and selecting it');
+    const newChatId = createNewChat();
+    setSelectedChatId(newChatId); // Select the new chat immediately
+    console.log('✅ New chat created and selected:', newChatId);
     setSidebarOpen(false);
   };
 
@@ -150,7 +158,7 @@ const Index = () => {
     isSearchingInternet
   });
 
-  // Perbaiki logika render - tampilkan welcome screen jika tidak ada chat ATAU chat kosong (tidak ada pesan)
+  // Show welcome screen only if no chat is selected OR selected chat has no messages
   const shouldShowWelcome = !selectedChatId || !currentChat || (currentChat.messages.length === 0);
   console.log('🎯 Render decision:', { 
     shouldShowWelcome, 

@@ -114,11 +114,11 @@ export const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center space-x-2">
               <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-              <span className="text-sm text-red-700">Recording...</span>
+              <span className="text-sm text-red-700">Merekam...</span>
             </div>
           </div>
           <Progress value={recordingProgress} className="h-1" />
-          <p className="text-xs text-red-600 mt-1">Tap microphone to stop</p>
+          <p className="text-xs text-red-600 mt-1">Ketuk mikrofon untuk berhenti</p>
         </div>
       )}
 
@@ -127,7 +127,7 @@ export const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
         <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
           <div className="flex items-center space-x-2 mb-2">
             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            <span className="text-sm text-green-700">Voice captured</span>
+            <span className="text-sm text-green-700">Suara berhasil direkam</span>
           </div>
           <p className="text-xs text-green-600 bg-green-100 p-2 rounded italic">"{transcript.substring(0, 80)}..."</p>
         </div>
@@ -158,7 +158,7 @@ export const ChatInput = ({ onSendMessage, isLoading }: ChatInputProps) => {
             <AutoResizeTextarea
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              placeholder={isSearchMode ? "Cari informasi terbaru..." : "Type your message here..."}
+              placeholder={isSearchMode ? "Cari informasi terbaru..." : "Ketik pesan Anda di sini..."}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' && !e.shiftKey) {
                   e.preventDefault();

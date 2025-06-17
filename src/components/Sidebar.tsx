@@ -85,6 +85,13 @@ export const Sidebar = ({
 
   const handleDeleteConfirm = (chatId: string) => {
     onDeleteChat(chatId);
+    // Do not close sidebar after deletion
+  };
+
+  const handleDeleteTriggerClick = (e: React.MouseEvent) => {
+    // Only prevent event propagation to avoid triggering parent click handlers
+    // Do NOT prevent default as it breaks the AlertDialog trigger
+    e.stopPropagation();
   };
 
   return (
@@ -150,7 +157,7 @@ export const Sidebar = ({
                           {chat.messages.length} messages
                         </p>
                       </div>
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-2">
                         {/* Export button with better mobile spacing */}
                         <Button
                           variant="ghost"
@@ -168,7 +175,7 @@ export const Sidebar = ({
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={(e) => e.stopPropagation()}
+                              onClick={handleDeleteTriggerClick}
                               className="md:opacity-0 md:group-hover:opacity-100 transition-all duration-200 p-1.5 h-7 w-7 md:h-8 md:w-8 hover:bg-destructive/10 hover:text-destructive hover:scale-105 text-muted-foreground flex-shrink-0"
                               title="Delete chat"
                             >
@@ -181,7 +188,7 @@ export const Sidebar = ({
                               </svg>
                             </Button>
                           </AlertDialogTrigger>
-                          <AlertDialogContent>
+                          <AlertDialogContent onClick={(e) => e.stopPropagation()}>
                             <AlertDialogHeader>
                               <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                               <AlertDialogDescription>
@@ -189,9 +196,12 @@ export const Sidebar = ({
                               </AlertDialogDescription>
                             </AlertDialogHeader>
                             <AlertDialogFooter>
-                              <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogCancel onClick={(e) => e.stopPropagation()}>Cancel</AlertDialogCancel>
                               <AlertDialogAction
-                                onClick={() => handleDeleteConfirm(chat.id)}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  handleDeleteConfirm(chat.id);
+                                }}
                                 className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                               >
                                 Delete
