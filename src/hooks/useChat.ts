@@ -97,7 +97,7 @@ export const useChat = (selectedChatId: string | null) => {
       // English variations
       'latest', 'news', 'current', 'recent',  
       'price', 'find me', 'search for',
-      'tell me about', 'information about', 'what is the latest'
+      'information about', 'what is the latest'
     ];
     
     const hasSearchKeyword = searchKeywords.some(keyword => 
