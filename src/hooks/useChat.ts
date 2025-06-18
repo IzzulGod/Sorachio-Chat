@@ -89,14 +89,14 @@ export const useChat = (selectedChatId: string | null) => {
     
     const searchKeywords = [
       // Indonesian variations
-      'terbaru', 'berita', 'informasi', 'update', 'sekarang', 'hari ini',
-      'kapan', 'harga', 'cuaca', 'stock', 'saham',
+      'terbaru', 'berita', 'informasi', 'update',  
+      'harga', 'stock', 'saham',
       // Different variations of "carikan" including typos and informal spellings
-      'carikan', 'cariin', 'cariin', 'cari kan', 'cari in', 'tolong carikan', 'tolong cari',
-      'kasih tau', 'kasih tahu', 'info tentang', 'info soal',
+      'carikan', 'cariin', 'cari tau', 'cari kan', 'cari in', 'tolong carikan', 'tolong cari',
+      'kasih tau', 'info tentang', 'info soal',
       // English variations
-      'latest', 'news', 'current', 'recent', 'today', 'now',
-      'when', 'price', 'weather', 'find me', 'search for',
+      'latest', 'news', 'current', 'recent',  
+      'price', 'find me', 'search for',
       'tell me about', 'information about', 'what is the latest'
     ];
     
